@@ -27,6 +27,8 @@ int main(){
     a = (int*) malloc(sizeof(int) * 5) //-> malloc returns void pointer, therefore it is needed to typecast to integer pointer
     a[0] = 10; a[1] = 20; a[2] = 30; a[3] = 40; a[4] = 50;
     free(a);
+
+    return 0;
 }
 ```
 
@@ -54,8 +56,175 @@ int main(){
     a = (struct Rectangle *) malloc(sizeof(struct Rectangle));
     a -> length = 10;
     a -> breadth = 5;
+
+    return 0;
 }
 ```
 
 # Functions
 
+### Pass By Value
+
+```C
+void swap(int x, int y){
+    int temp;
+    temp = x;
+    x = y;
+    y = temp;
+}
+
+int main(){
+    int a, b;
+    a = 10;
+    b = 20;
+    swap(a, b);
+    printf("%d %d", a, b);
+
+    return 0;
+}
+```
+
+### Pass By address
+
+```C
+void swap(int *x, int *y){
+    int temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main(){
+    int a, b;
+    a = 10;
+    b = 20;
+    swap(&a, &b);
+    printf("%d %d", a, b);
+
+    return 0;
+}
+```
+
+### Pass By refrence
+
+_Works in C++ only_
+
+```C++
+void swap(int &x, int &y){
+    int temp;
+    temp = x;
+    x = y;
+    y = temp;
+}
+
+int main(){
+    int a, b;
+    a = 10;
+    b = 20;
+    swap(a, b);
+    printf("%d %d", a, b);
+
+    return 0;
+}
+```
+
+### Array as parameter
+
+-   Array can only be passed by address
+-   Ways to pass array as parameter :
+    -   int A[ ] in formal parameter - it means pointer to array only
+    -   int \*A in formal parameter - it means pointer to integer which can point to an array of integer too
+
+```C
+void fun(int A[], int n){
+    int i;
+    for(i=0; i<n; i++) printf("%d", A[i]);
+}
+
+int main(){
+    int A[] = {2,4,6,8,10};
+    fun(A,5);
+
+    return 0;
+}
+```
+
+#### Returning Array from a function
+
+```C
+int* fun(int n){
+    int *p;
+    p = (int*) malloc(n * sizeof(int));
+    return(p);
+}
+
+int main(){
+    int *A;
+    A = fun(5);
+
+    return 0;
+}
+```
+
+### Structure as parameter
+
+```C
+struct Rectangle{
+    int length;
+    int breadth;
+}
+
+// Pass by value
+void changeLengthByValue(struct Rectangle r1){
+    r1.length++;
+}
+
+// Pass by refrence for C++
+void changeLengthByRefrence(struct Rectangle &r2){
+    r2.length++;
+}
+
+// Pass by address
+void changeLengthByAddress(struct Rectangle *p, int l){
+    p -> length = l;
+}
+
+int main(){
+    struct Rectangle r = {10,5};
+
+    changeLengthByValue(r);
+    printf("%d", r.length); //10
+
+    changeLengthByRefrence(r); //for C++
+    printf("%d", r.length); //11
+
+    changeLengthByAddress(&r, ++(r.length));
+    printf("%d", r.length); //12
+
+    return 0;
+}
+```
+
+#### Returning structure from function
+
+```C
+struct Rectangle{
+    int length;
+    int breadth;
+}
+
+struct Rectangle *fun(){
+    struct Rectangle *p;
+    p = (struct Rectangle *) malloc(sizeof(struct Rectangle));
+    p -> length = 15;
+    p -> breadth = 7;
+
+    return p;
+}
+
+int main(){
+    struct Rectangle *ptr = fun();
+
+    return 0;
+}
+```
