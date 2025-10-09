@@ -348,3 +348,63 @@ int pow(int m, int n){
     else return m*pow(m*m, (n-1)/2);
 }
 ```
+
+## Taylor series (e^x)
+
+```C
+Way 1:-
+double e(int x, int n){
+    static double P=1, F=1;
+    double r;
+    if(n == 0) return 1;
+    else{
+        r = e(x, n-1);
+        P = P*x;
+        F = F*n;
+        return r+(P/F);
+    }
+}
+No. of multiplication required is - O(n^2)
+
+Way 2:-
+double e(int x, int n){
+    double s = 1;
+    for(n; n>0; n--){
+        s = 1+((x/n)*s);
+    }
+    return s;
+}
+OR
+double e(int x, int n){
+    static double s = 1;
+    if(n == 0) return s;
+    s = 1+((x/n)*s);
+    return e(x,n-1);
+}
+No. of multiplication required is - O(n)
+```
+
+## Fibonacci series
+
+```C
+Way 1:-
+int fib(int n){
+    if(n<=1) return n;
+    return fib(n-1)+fib(n-2);
+}
+Time - O(2^n)
+
+Way 2:-
+int fib(int n){
+    int t0 = 0, t1 = 1, s, i;
+    if(n<=1) return n;
+    for(i=2; i<n; i++){
+        s = t0 + t1;
+        t0 = t1;
+        t1 = s;
+    }
+    return s;
+}
+Time - O(n)
+```
+
