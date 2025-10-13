@@ -11,13 +11,19 @@
 - [Display(arr)](#displayarr)
 - [Add(x) / Append(x)](#addx--appendx)
 - [Insert(index, x)](#insertindex-x)
-- [Delete(index)]
-- [Search(x)]
+- [Delete(index)](#deleteindex)
 - [Get(index)]
 - [Set(index, x)]
 - [Max() / Min()]
 - [Reverse()]
 - [Shift() / Rotate()]
+
+## Searching
+
+- [Linear Search]
+- [Binary Search]
+
+# Data
 
 ## Array Space, Size, Length
 
@@ -31,6 +37,8 @@
     A = (int*) malloc(size * sizeof(int)); //input size from user
     <br>
     Length = 0;
+
+# Operartions
 
 ## Display(arr)
 
@@ -55,17 +63,51 @@ length++;
 ```
 Time - max: O(n), min: O(1)
 
+## Delete(index)
 
+```C
+x = A[index];
+for(i=index; i<length; i++){
+    A[i] = A[i+1];
+}
+length--;
+```
+Time - max: O(n), min: O(1)
 
+# Searching
 
+## Linear Searching
 
+- Elements must be of unique set.
+- Search linearly by checking elements one by one.
 
+```C
+for(i=0; i<length; i++){
+    if(key==A[i]) return i; 
+}
+return -1;
+```
+1st element take 1 case
+<br>
+2nd element take 2 case
+<br>
+3rd element take 3 case
+<br>
+.
+<br>
+.
+<br>
+.
+<br>
+nth element take n case
 
+Total cases required for searching n elements - 1+2+3+...+n
+<br>
+Avg time for 1 element - (1+2+3+...+n)/n = (n+1)/2 -> O(n)
 
+Time - max: O(n), min: O(1), avg: O(n)
 
-
-
-
+### Improving Linear Search
 
 
 
@@ -107,6 +149,19 @@ void Insert(struct Array *arr, int index, int x){
     }
 }
 
+// Deletefunction
+int Delete(struct Array *arr, int index){
+    int x = 0;
+    if(index>=0 && index<arr->length){
+        x = arr->A[index];
+        for(i=index; i<arr->length-1; i++) arr->A[i]=arr->A[i+1];
+        arr->length--;
+        return x;
+    }
+
+    return 0;
+}
+
 int main(){
     /* Initialise Array in HEAP
     struct Array arr;
@@ -132,6 +187,10 @@ int main(){
 
     // Insert function
     Insert(&arr, 0, 10);
+
+    // Delete operation
+    printf("%d\n", Delete(&arr, 0);)
+    printf("%d\n", Delete(&arr, 5);)
 
     // Display operation
     Display(arr);
