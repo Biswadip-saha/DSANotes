@@ -2,41 +2,41 @@
 
 ## Data
 
-- [Array space](#array-space-size-length)
-- [Size](#array-space-size-length)
-- [Length (No. of elements)](#array-space-size-length)
+-   [Array space](#array-space-size-length)
+-   [Size](#array-space-size-length)
+-   [Length (No. of elements)](#array-space-size-length)
 
 ## Operation
 
-- [Display(arr)](#displayarr)
-- [Add(x) / Append(x)](#addx--appendx)
-- [Insert(index, x)](#insertindex-x)
-- [Delete(index)](#deleteindex)
-- [Get(index)]
-- [Set(index, x)]
-- [Max() / Min()]
-- [Reverse()]
-- [Shift() / Rotate()]
+-   [Display(arr)](#displayarr)
+-   [Add(x) / Append(x)](#addx--appendx)
+-   [Insert(index, x)](#insertindex-x)
+-   [Delete(index)](#deleteindex)
+-   [Get(index)]
+-   [Set(index, x)]
+-   [Max() / Min()]
+-   [Reverse()]
+-   [Shift() / Rotate()]
 
 ## Searching
 
-- [Linear Search]
-- [Binary Search]
+-   [Linear Search](#linear-searching)
+-   [Binary Search](#binary-searching)
 
 # Data
 
 ## Array Space, Size, Length
 
 1. int A[10];
-    <br>
-    size = 10;
-    <br>
-    Length = 0;
+   <br>
+   size = 10;
+   <br>
+   Length = 0;
 2. int* A;
-    <br>
-    A = (int*) malloc(size * sizeof(int)); //input size from user
-    <br>
-    Length = 0;
+   <br>
+   A = (int*) malloc(size \* sizeof(int)); //input size from user
+   <br>
+   Length = 0;
 
 # Operartions
 
@@ -52,7 +52,8 @@ for(i=0; i<length; i++) printf("%d", A[i]);
 A[length] = x;
 length++;
 ```
-Time - O(1) 
+
+Time - O(1)
 
 ## Insert(index, x)
 
@@ -61,6 +62,7 @@ for(i=length; i>index; i--) A[i] = A[i-1];
 A[index] = x;
 length++;
 ```
+
 Time - max: O(n), min: O(1)
 
 ## Delete(index)
@@ -72,21 +74,23 @@ for(i=index; i<length; i++){
 }
 length--;
 ```
+
 Time - max: O(n), min: O(1)
 
 # Searching
 
 ## Linear Searching
 
-- Elements must be of unique set.
-- Search linearly by checking elements one by one.
+-   Elements must be of unique set.
+-   Search linearly by checking elements one by one.
 
 ```C
 for(i=0; i<length; i++){
-    if(key==A[i]) return i; 
+    if(key==A[i]) return i;
 }
 return -1;
 ```
+
 1st element take 1 case
 <br>
 2nd element take 2 case
@@ -109,13 +113,69 @@ Time - max: O(n), min: O(1), avg: O(n)
 
 ### Improving Linear Search
 
+1. Transposition :
+    - If an element is searched, there is a high possibility that, that element might be searched for again, for that move the element one position closer for reducing the number of searches needed to find that element.
 
+```C
+for(i=0; i<length; i++){
+    if(key==A[i]) {
+        swap(A[i], A[i-1]);
+        return i-1;
+    }
+}
+return -1;
+```
+
+2. Move to front/head:
+
+```C
+for(i=0; i<length; i++){
+    if(key==A[i]) {
+        swap(A[i], A[0]);
+        return 0;
+    }
+}
+return -1;
+```
+
+## Binary Searching
+
+-   All elements must be sorted
+-   Search in the middle of the array, if not found split the array in half and search in the middle of the half where the element belongs.
+-   3 parameters required: l (low), h (high), key
+
+```C
+Way 1 (Iterative) :-
+while(l<=h){
+    mid = [(l+h)/2];
+    if(key = A[mid]) return mid;
+    else if(key<A[mid]) h = mid-1;
+    else l = mid+1;
+}
+return -1;
+
+Way 2 (Recursive) :-
+if(l<=h){
+    mid = [(l+h)/2];
+    if(key = A[mid]) return mid;
+    else if(key<A[mid]) return BinarySearch(l, mid-1, key);
+    else return BinarySearch(mid+1, h, key);
+}
+return -1;
+```
 
 # Code Implementation
 
 ```C
 #include <stdio.h>
 #include <stdlib.h>
+
+void swap(int *x, int *y){
+    int temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
 
 struct Array{
     /* Array in HEAP
@@ -162,6 +222,50 @@ int Delete(struct Array *arr, int index){
     return 0;
 }
 
+// Linear Search
+int LinearSearch(struct Array *arr, int key){
+    int i=0;
+    for(i=0; i<arr->length; i++){
+        if(key==arr->A[i]){
+            // return i; Normal
+            /* swap(&arr->A[i], &arr->A[0]); // Move to Head
+            return 0; */
+            swap(&arr->A[i], &arr->A[i-1]); // Transposition
+            return i-1;
+        }
+        return -1;
+    }
+}
+
+// Binary Search
+
+    // Iterative
+    int BinarySearch(struct Array arr, int key){
+        int l, mid, h;
+        l = 0;
+        h = arr.length-1;
+
+        while(l<=h){
+            mid = [(l+h)/2];
+            if(key == arr.A[mid]) return mid;
+            else if(key<arr.A[mid]) h = mid-1;
+            else l = mid+1;
+        }
+        return -1;
+    }
+
+    // Recursive
+    /* int RecursiveBinarySearch(int a[], int l, int h, int key){
+        int mid;
+        if(l<=h){
+            mid = (l+h)/2;
+            if(key == a[mid]) return mid;
+            else if(key<a[mid]) return RecursiveBinarySearch(a, l, mid-1, key);
+            else return RecursiveBinarySearch(a, mid+1, h, key);
+        }
+        return -1;
+    } */
+
 int main(){
     /* Initialise Array in HEAP
     struct Array arr;
@@ -169,7 +273,7 @@ int main(){
 
     printf("Enter size of an array:- ");
     scanf("%d", &arr.size);
-    
+
     arr.A = (int*)malloc(arr.size * sizeof(int));
     arr.length = 0;
 
@@ -189,8 +293,15 @@ int main(){
     Insert(&arr, 0, 10);
 
     // Delete operation
-    printf("%d\n", Delete(&arr, 0);)
-    printf("%d\n", Delete(&arr, 5);)
+    printf("%d\n", Delete(&arr, 0););
+    printf("%d\n", Delete(&arr, 5););
+
+    // Linear Search
+    printf("%d\n", LinearSearch(&arr, 4));
+
+    // Binary Search
+    printf("%d\n", BinarySearch(arr, 4));
+    // printf("%d\n", RecursiveBinarySearch(arr.A, 0, arr.length, 4));
 
     // Display operation
     Display(arr);
