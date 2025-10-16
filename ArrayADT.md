@@ -12,9 +12,10 @@
 -   [Add(x) / Append(x)](#addx--appendx)
 -   [Insert(index, x)](#insertindex-x)
 -   [Delete(index)](#deleteindex)
--   [Get(index)]
--   [Set(index, x)]
--   [Max() / Min()]
+-   [Get(index)](#getindex)
+-   [Set(index, x)](#setindex)
+-   [Max() / Min()](#max--min)
+-   [Avg()](#avg)
 -   [Reverse()]
 -   [Shift() / Rotate()]
 
@@ -76,6 +77,46 @@ length--;
 ```
 
 Time - max: O(n), min: O(1)
+
+## Get(index)
+
+```C
+if(index>=0 && index<length) return A[index];
+```
+
+Time - O(1)
+
+## Set(index)
+
+```C
+if(index>=0 && index<length) A[index] = x;
+```
+
+Time - O(1)
+
+## Max() / Min()
+
+```C
+max = A[0];
+min = A[0];
+for(i=1; i<length; i++){
+    if(A[i]>max) max = A[i];
+    if(A[i]<min) min = A[i];
+}
+return max/min;
+```
+
+Time - O(n)
+
+## Avg()
+
+```C
+total = 0;
+for(i=0; i<length; i++) total = total+A[i];
+return total/n;
+```
+
+Time - O(n)
 
 # Searching
 
@@ -163,6 +204,38 @@ if(l<=h){
 }
 return -1;
 ```
+`log is of base 2`
+
+1st level of middle element take 1 search = 
+<br>
+2nd level of middle element take 2\*2 search
+<br>
+3rd level of middle element take 3\*4 search
+<br>
+4th level of middle element take 4\*8 search
+<br>
+.
+<br>
+.
+<br>
+.
+<br>
+ith level of middle element take i\*2^(i-1) search
+
+Total searches required for searching n elements - 1\*2^0 + 2\*2^1 + 3\*2^2 + ... + i\*2^(i-1)
+<br>
+Avg time for 1 element - (1\*2^0+2\*2^1+3\*2^2+...+i\*2^(i-1))/n 
+<br>
+= ((i=1Σlogn)i\*2^(i-1))/n 
+<br>
+= (logn\*2^(logn))/n (approx)
+<br>
+= (logn\*n^(log2))/n
+<br>
+= logn
+<br>
+
+Time - Max: O(logn), Min: O(1), Avg: O(logn)
 
 # Code Implementation
 
@@ -220,6 +293,44 @@ int Delete(struct Array *arr, int index){
     }
 
     return 0;
+}
+
+// Get function
+int Get(struct Array arr, int index){
+    if(index>=0 && index<arr.length) return arr.A[index];
+    return -1;
+}
+
+// set function
+int Get(struct Array *arr, int index, int x){
+    if(index>=0 && index<arr->length) arr->A[index] = x;
+}
+
+// Max function
+int Max(struct Array arr){
+    int max = arr.A[0];
+    int i;
+    for(i=1; i<arr.length; i++){
+        if(arr.A[i]>max) max = arr.A[i];
+    }
+    return max;
+}
+
+// Min function
+int Min(struct Array arr){
+    int min = arr.A[0];
+    int i;
+    for(i=1; i<arr.length; i++){
+        if(arr.A[i]<min) min = arr.A[i];
+    }
+    return min;
+}
+
+// Avg function
+float Avg(struct Array arr){
+    int s = 0, i;
+    for(i=0; i<arr.length; i++) s+=arr.A[i];
+    return (float) s/arr.length;
 }
 
 // Linear Search
@@ -286,15 +397,28 @@ int main(){
     // Initialise Array in STACK
     struct Array arr = {{2,3,4,5,6}, 10, 5};
 
-    // Append function
+    // Append operation
     Append(&arr, 10);
 
-    // Insert function
+    // Insert operation
     Insert(&arr, 0, 10);
 
     // Delete operation
     printf("%d\n", Delete(&arr, 0););
     printf("%d\n", Delete(&arr, 5););
+
+    // Get operation
+    printf("%d\n", Get(arr, 2));
+
+    // Set operation
+    Set(&arr, 0, 10);
+
+    // Max / Min operation
+    printf("%d\n", Max(arr));
+    printf("%d\n", Min(arr));
+
+    // Avg operation
+    printf("%f\n", Avg(arr));
 
     // Linear Search
     printf("%d\n", LinearSearch(&arr, 4));
