@@ -12,12 +12,13 @@
 -   [Add(x) / Append(x)](#addx--appendx)
 -   [Insert(index, x)](#insertindex-x)
 -   [Delete(index)](#deleteindex)
+-   [Sorted() ?](#sorted)
 -   [Get(index)](#getindex)
 -   [Set(index, x)](#setindex)
 -   [Max() / Min()](#max--min)
 -   [Avg()](#avg)
--   [Reverse()]
--   [Shift() / Rotate()]
+-   [Reverse()](#reverse)
+-   [Shift() / Rotate()](#shift--rotate)
 
 ## Searching
 
@@ -78,6 +79,46 @@ length--;
 
 Time - max: O(n), min: O(1)
 
+## Sorted()
+
+### Check whether the array is sorted or not
+
+```C
+for(i=0; i<length-1; i++){
+    if(A[i] > A[i+1]) return false;
+}
+return true;
+```
+
+### Inserting element in an sorted array
+
+```C
+i=length-1;
+while(A[i]>x){
+    A[i+1] = A[i];
+    i--;
+}
+A[i+1] = x;
+```
+
+### -ve on left side
+
+```C
+i=0;
+j=length-1;
+while(i<j){
+    while(A[i]<0){
+        i++;
+    }
+    while(A[j]>=0){
+        j--;
+    }
+    if(i<j){
+        swap(A[i], A[j]);
+    }
+}
+```
+
 ## Get(index)
 
 ```C
@@ -135,7 +176,7 @@ Way 2: Scan the two ends of the array and interchange them
 
 ```C
 for(i=0, j=length-1; i<j; i++, j--){
-    swap(&A[i], &A[j]);
+    swap(A[i], A[j]);
 }
 ```
 
@@ -143,10 +184,34 @@ for(i=0, j=length-1; i<j; i++, j--){
 
 ### Left shift() / Rotate()
 
-- Shifting elements by one place to the left and deleting the index 0 elemnt freeing up the length-1 element space // shifting
+- Shifting elements by one place to the left and deleting the index 0 element freeing up the length-1 element space // shifting
 - The deleted element is copied to the free space // rotating
 
 ```C
+// int firstEle = A[0];
+for(int i=0; i<length-1; i++){
+    A[i] = A[i+1];
+}
+A[length-1] = 0;
+// A[length-1] = firstEle;
+
+// commented for rotation code
+```
+
+### Right shift() / Rotate()
+
+- Shifting elements by one place to the right and deleting the index[length-1] element freeing up the 0th index element space // shifting
+- The deleted element is copied to the free space // rotating
+
+```C
+// int lastEle = A[length-1];
+for(int i=length-1; i>0; i--){
+    A[i] = A[i-1];
+}
+A[length-1] = 0;
+// A[0] = lastEle;
+
+// commented for rotation code
 ```
 
 # Searching
@@ -313,7 +378,7 @@ void Insert(struct Array *arr, int index, int x){
     }
 }
 
-// Deletefunction
+// Delete function
 int Delete(struct Array *arr, int index){
     int x = 0;
     if(index>=0 && index<arr->length){
@@ -325,6 +390,37 @@ int Delete(struct Array *arr, int index){
 
     return 0;
 }
+
+// Sorted? function
+    // Check if the array is sorted
+    int isSorted(struct Array arr){
+        int i;
+        for(i=0; i<arr.length-1; i++){
+            if(arr.A[i] > arr.A[i+1]) return 0;
+        }
+        return 1;
+    }
+
+    // Inserting element in an sorted array
+    void InsertSort(struct Array *arr, int x){
+        if(arr->length == arr->size) return;
+        int i = arr->length-1;
+
+        while(i>=0 && arr->A[i]>x){
+            arr->A[i+1] = arr->A[i];
+        }
+        arr->A[i+1] = x;
+    }
+
+    // -ve on left side
+    void Rearrange(struct Array *arr){
+        int i = 0, j = arr->length-1;
+        while(i<j){
+            while(arr->A[i]>0) i++;
+            while(arr->A[j]<=0) j--;
+            if(i<j) swap(&arr->A[i], &arr->A[j]);
+        }
+    }
 
 // Get function
 int Get(struct Array arr, int index){
@@ -379,9 +475,9 @@ void Reverse(struct Array *arr){
     }
 
     // Way 2: (Swaping elements)
-    for(i=0, j=arr->length; i<j; i++){
-        
-    }
+    /* for(i=0, j=arr->length; i<j; i++){
+        swap(&arr->A[i], &arr->A[j]);
+    } */
 }
 
 // Linear Search
@@ -458,6 +554,9 @@ int main(){
     printf("%d\n", Delete(&arr, 0););
     printf("%d\n", Delete(&arr, 5););
 
+    // Sorted?
+    printf("%d\n", isSorted(arr));
+
     // Get operation
     printf("%d\n", Get(arr, 2));
 
@@ -470,6 +569,9 @@ int main(){
 
     // Avg operation
     printf("%f\n", Avg(arr));
+
+    // Reverse operation
+    Reverse(&arr);
 
     // Linear Search
     printf("%d\n", LinearSearch(&arr, 4));
