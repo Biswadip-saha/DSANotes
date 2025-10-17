@@ -118,6 +118,37 @@ return total/n;
 
 Time - O(n)
 
+## Reverse()
+
+Way 1: Reverse copy the original array
+
+```C
+for(i=length-1, j=0; i>=0; i--, j++){
+    B[j] = A[i];
+}
+for(i=0; i<length; i++){
+    A[i] = B[i];
+}
+```
+
+Way 2: Scan the two ends of the array and interchange them
+
+```C
+for(i=0, j=length-1; i<j; i++, j--){
+    swap(&A[i], &A[j]);
+}
+```
+
+## Shift() / Rotate()
+
+### Left shift() / Rotate()
+
+- Shifting elements by one place to the left and deleting the index 0 elemnt freeing up the length-1 element space // shifting
+- The deleted element is copied to the free space // rotating
+
+```C
+```
+
 # Searching
 
 ## Linear Searching
@@ -331,6 +362,26 @@ float Avg(struct Array arr){
     int s = 0, i;
     for(i=0; i<arr.length; i++) s+=arr.A[i];
     return (float) s/arr.length;
+}
+
+// Reverse function
+void Reverse(struct Array *arr){
+    // Way 1: (Help of another array)
+    int *arrB;
+    int i, j;
+    arrB = (int*)malloc(arr->length*sizeof(int));
+
+    for(i=0, j=arr->length-1; j>=0; i++, j--){
+        arrB[i] = arr->A[j];
+    }
+    for(i=0; i<arr->length; i++){
+        arr->A[i] = arrB[i];
+    }
+
+    // Way 2: (Swaping elements)
+    for(i=0, j=arr->length; i<j; i++){
+        
+    }
 }
 
 // Linear Search
