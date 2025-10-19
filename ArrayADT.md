@@ -945,28 +945,28 @@ int main()
 
         switch (ch)
         {
-        case 1:
-            printf("Enter an element and index");
-            scanf("%d%d", &x, &index);
-            Insert(&arr1, index, x);
-            break;
-        case 2:
-            printf("Enter index ");
-            scanf("%d", &index);
-            x = Delete(&arr1, index);
-            printf("Deleted Element is %d\n", x);
-            break;
-        case 3:
-            printf("Enter element to search ");
-            scanf("%d", &x);
-            index = LinearSearch(&arr1, x);
-            printf("Element index %d", index);
-            break;
-        case 4:
-            printf("Sum is %d\n", Sum(arr1));
-            break;
-        case 5:
-            Display(arr1);
+            case 1:
+                printf("Enter an element and index");
+                scanf("%d%d", &x, &index);
+                Insert(&arr1, index, x);
+                break;
+            case 2:
+                printf("Enter index ");
+                scanf("%d", &index);
+                x = Delete(&arr1, index);
+                printf("Deleted Element is %d\n", x);
+                break;
+            case 3:
+                printf("Enter element to search ");
+                scanf("%d", &x);
+                index = LinearSearch(&arr1, x);
+                printf("Element index %d", index);
+                break;
+            case 4:
+                printf("Sum is %d\n", Sum(arr1));
+                break;
+            case 5:
+                Display(arr1);
         }
     } while (ch < 6);
     return 0;
