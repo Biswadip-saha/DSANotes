@@ -12,18 +12,25 @@
 -   [Add(x) / Append(x)](#addx--appendx)
 -   [Insert(index, x)](#insertindex-x)
 -   [Delete(index)](#deleteindex)
--   [Sorted() ?](#sorted)
+-   [Sorted?](#sorted)
+-   [Merging]()
 -   [Get(index)](#getindex)
 -   [Set(index, x)](#setindex)
 -   [Max() / Min()](#max--min)
 -   [Avg()](#avg)
 -   [Reverse()](#reverse)
 -   [Shift() / Rotate()](#shift--rotate)
+-   [Sets Operation](#set-operations)
 
 ## Searching
 
 -   [Linear Search](#linear-searching)
 -   [Binary Search](#binary-searching)
+
+## Code
+
+- [Implementation](#code-implementation)
+- [Menu Driven Programme](#menu-driven-programme)
 
 # Data
 
@@ -36,9 +43,11 @@
    Length = 0;
 2. int* A;
    <br>
-   A = (int*) malloc(size \* sizeof(int)); //input size from user
+   A = (int*) malloc(size \* sizeof(int)); // input size from user
    <br>
    Length = 0;
+
+[`Code :`](#data-2)
 
 # Operartions
 
@@ -47,6 +56,8 @@
 ```C
 for(i=0; i<length; i++) printf("%d", A[i]);
 ```
+
+[`Code :`](#display)
 
 ## Add(x) / Append(x)
 
@@ -57,6 +68,8 @@ length++;
 
 Time - O(1)
 
+[`Code :`](#append)
+
 ## Insert(index, x)
 
 ```C
@@ -66,6 +79,8 @@ length++;
 ```
 
 Time - max: O(n), min: O(1)
+
+[`Code :`](#insert)
 
 ## Delete(index)
 
@@ -79,7 +94,9 @@ length--;
 
 Time - max: O(n), min: O(1)
 
-## Sorted()
+[`Code :`](#delete)
+
+## Sorted?
 
 ### Check whether the array is sorted or not
 
@@ -119,6 +136,25 @@ while(i<j){
 }
 ```
 
+[`Code :`](#sorted-1)
+
+## Merging
+
+-   Can only be done on sorted arrays
+-   Result is a sorted array
+
+```C
+int i=0, j=0, k=0;
+while(i<m && j<n){
+    if(A[i] < B[j]) C[k++] = A[i++];
+    else C[k++] = B[j++];
+}
+for(;i<m;i++) C[k++] = A[i];
+for(;j<n;j++) C[k++] = B[j];
+```
+
+[`Code :`](#merging-1)
+
 ## Get(index)
 
 ```C
@@ -127,6 +163,8 @@ if(index>=0 && index<length) return A[index];
 
 Time - O(1)
 
+[`Code :`](#get)
+
 ## Set(index)
 
 ```C
@@ -134,6 +172,8 @@ if(index>=0 && index<length) A[index] = x;
 ```
 
 Time - O(1)
+
+[`Code :`](#set)
 
 ## Max() / Min()
 
@@ -149,6 +189,8 @@ return max/min;
 
 Time - O(n)
 
+[`Code :`](#maxmin)
+
 ## Avg()
 
 ```C
@@ -158,6 +200,8 @@ return total/n;
 ```
 
 Time - O(n)
+
+[`Code :`](#avg-1)
 
 ## Reverse()
 
@@ -180,12 +224,14 @@ for(i=0, j=length-1; i<j; i++, j--){
 }
 ```
 
+[`Code :`](#reverse-1)
+
 ## Shift() / Rotate()
 
 ### Left shift() / Rotate()
 
-- Shifting elements by one place to the left and deleting the index 0 element freeing up the length-1 element space // shifting
-- The deleted element is copied to the free space // rotating
+-   Shifting elements by one place to the left and deleting the index 0 element freeing up the length-1 element space // shifting
+-   The deleted element is copied to the free space // rotating
 
 ```C
 // int firstEle = A[0];
@@ -200,8 +246,8 @@ A[length-1] = 0;
 
 ### Right shift() / Rotate()
 
-- Shifting elements by one place to the right and deleting the index[length-1] element freeing up the 0th index element space // shifting
-- The deleted element is copied to the free space // rotating
+-   Shifting elements by one place to the right and deleting the index[length-1] element freeing up the 0th index element space // shifting
+-   The deleted element is copied to the free space // rotating
 
 ```C
 // int lastEle = A[length-1];
@@ -213,6 +259,46 @@ A[length-1] = 0;
 
 // commented for rotation code
 ```
+
+## Sets operations
+
+### Union
+
+#### For unsorted arrays:
+
+- Copy 1 array into the resultant array
+- For every element in the 2nd array check whether it is in the resultant array
+- If yes: move on, no: copy the element in the resultant array
+
+#### For sorted arrays :
+
+- Merge operation format but, if the element at i and j is same copy once in the resultant array and increase both i and j by 1
+
+### Intersection
+
+#### For unsorted arrays:
+
+- Copy elements of 1 array into the resultant array only if the element is present in both arrays
+
+#### For sorted arrays :
+
+- Merge operation format but, if the element at i and j is same only then copy the element in the resultant array and increase both i and j by 1
+
+### Difference
+
+#### For unsorted arrays:
+
+- Copy element of the required array into the resultant array only if the element is not present in the other array
+
+#### For sorted arrays :
+
+- Merge operation format but, if the element at i and j is same don't copy that element and increase both i and j by 1 and copy only the elements of the required array into the resultant array
+
+### Sets Membership
+
+- Search for the required element if it is present in the required array
+
+[`Code :`](#sets-operations-1)
 
 # Searching
 
@@ -275,6 +361,8 @@ for(i=0; i<length; i++){
 return -1;
 ```
 
+[`Code :`](#linear-search)
+
 ## Binary Searching
 
 -   All elements must be sorted
@@ -300,9 +388,10 @@ if(l<=h){
 }
 return -1;
 ```
+
 `log is of base 2`
 
-1st level of middle element take 1 search = 
+1st level of middle element take 1 search =
 <br>
 2nd level of middle element take 2\*2 search
 <br>
@@ -320,9 +409,9 @@ ith level of middle element take i\*2^(i-1) search
 
 Total searches required for searching n elements - 1\*2^0 + 2\*2^1 + 3\*2^2 + ... + i\*2^(i-1)
 <br>
-Avg time for 1 element - (1\*2^0+2\*2^1+3\*2^2+...+i\*2^(i-1))/n 
+Avg time for 1 element - (1\*2^0+2\*2^1+3\*2^2+...+i\*2^(i-1))/n
 <br>
-= ((i=1Σlogn)i\*2^(i-1))/n 
+= ((i=1Σlogn)i\*2^(i-1))/n
 <br>
 = (logn\*2^(logn))/n (approx)
 <br>
@@ -333,7 +422,13 @@ Avg time for 1 element - (1\*2^0+2\*2^1+3\*2^2+...+i\*2^(i-1))/n
 
 Time - Max: O(logn), Min: O(1), Avg: O(logn)
 
-# Code Implementation
+[`Code :`](#binary-search)
+
+# Code
+
+## Implementation
+
+### Data
 
 ```C
 #include <stdio.h>
@@ -355,19 +450,31 @@ struct Array{
     int size;
     int length;
 }
+```
 
+### Display
+
+```C
 // Diplay function
 void Display(struct Array arr){
     int i;
     printf("\nElements are:- \n");
     for(i=0; i<arr.length; i++) printf("%d ", arr.A[i]);
 }
+```
 
+### Append
+
+```C
 // Append function
 void Append(struct Array *arr, int x){
     if(arr->length < arr->size) arr->A[arr->length++] = x;
 }
+```
 
+### Insert
+
+```C
 // Insert function
 void Insert(struct Array *arr, int index, int x){
     int i;
@@ -377,7 +484,11 @@ void Insert(struct Array *arr, int index, int x){
         arr->length++;
     }
 }
+```
 
+### Delete
+
+```C
 // Delete function
 int Delete(struct Array *arr, int index){
     int x = 0;
@@ -390,7 +501,11 @@ int Delete(struct Array *arr, int index){
 
     return 0;
 }
+```
 
+### Sorted?
+
+```C
 // Sorted? function
     // Check if the array is sorted
     int isSorted(struct Array arr){
@@ -421,18 +536,52 @@ int Delete(struct Array *arr, int index){
             if(i<j) swap(&arr->A[i], &arr->A[j]);
         }
     }
+```
 
+### Merging
+
+```C
+// Merging
+struct Array* Merging(struct Array *arr1, struct Array *arr2){
+    int i=0, j=0, k=0;
+    struct Array *arr3 = (struct Array*)malloc(sizeof(struct Array));
+
+    while(i<arr1->length && j<arr2->length){
+        if(arr1->A[i] < arr2->A[j]) arr3->A[k++] = arr1->A[i++];
+        else arr3->A[k++] = arr2->A[j++];
+    }
+    for(;i<arr1->length;i++) arr3->A[k++] = arr1->A[i];
+    for(;j<arr2->length;j++) arr3->A[k++] = arr2->A[j];
+
+    arr3->length = arr1->length + arr2->length;
+    arr3->size = 10;
+
+    return arr3;
+}
+```
+
+### Get
+
+```C
 // Get function
 int Get(struct Array arr, int index){
     if(index>=0 && index<arr.length) return arr.A[index];
     return -1;
 }
+```
 
+### Set
+
+```C
 // set function
 int Get(struct Array *arr, int index, int x){
     if(index>=0 && index<arr->length) arr->A[index] = x;
 }
+```
 
+### Max/Min
+
+```C
 // Max function
 int Max(struct Array arr){
     int max = arr.A[0];
@@ -452,14 +601,22 @@ int Min(struct Array arr){
     }
     return min;
 }
+```
 
+### Avg
+
+```C
 // Avg function
 float Avg(struct Array arr){
     int s = 0, i;
     for(i=0; i<arr.length; i++) s+=arr.A[i];
     return (float) s/arr.length;
 }
+```
 
+### Reverse
+
+```C
 // Reverse function
 void Reverse(struct Array *arr){
     // Way 1: (Help of another array)
@@ -479,7 +636,94 @@ void Reverse(struct Array *arr){
         swap(&arr->A[i], &arr->A[j]);
     } */
 }
+```
 
+### Sets Operations
+
+```C
+// Sets operations
+    // Union
+    struct Array *Union(struct Array *arr1, struct Array *arr2){
+        int i, j, k;
+        i = j = k = 0;
+
+        struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+        while (i < arr1->length && j < arr2->length){
+            if (arr1->A[i] < arr2->A[j])
+                arr3->A[k++] = arr1->A[i++];
+            else if (arr2->A[j] < arr1->A[i])
+                arr3->A[k++] = arr2->A[j++];
+            else{
+                arr3->A[k++] = arr1->A[i++];
+                j++;
+            }
+        }
+        for (; i < arr1->length; i++)
+            arr3->A[k++] = arr1->A[i];
+        for (; j < arr2->length; j++)
+            arr3->A[k++] = arr2->A[j];
+
+        arr3->length = k;
+        arr3->size = 10;
+
+        return arr3;
+    }
+
+    // Intersection
+    struct Array *Intersection(struct Array *arr1, struct Array *arr2){
+        int i, j, k;
+        i = j = k = 0;
+
+        struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+        while (i < arr1->length && j < arr2->length){
+            if (arr1->A[i] < arr2->A[j])
+                i++;
+            else if (arr2->A[j] < arr1->A[i])
+                j++;
+            else if (arr1->A[i] == arr2->A[j]){
+                arr3->A[k++] = arr1->A[i++];
+                j++;
+            }
+        }
+
+        arr3->length = k;
+        arr3->size = 10;
+
+        return arr3;
+    }
+
+    // Difference
+    struct Array *Difference(struct Array *arr1, struct Array *arr2){
+        int i, j, k;
+        i = j = k = 0;
+
+        struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+        while (i < arr1->length && j < arr2->length){
+            if (arr1->A[i] < arr2->A[j])
+                arr3->A[k++] = arr1->A[i++];
+            else if (arr2->A[j] < arr1->A[i])
+                j++;
+            else{
+                i++;
+                j++;
+            }
+        }
+        for (; i < arr1->length; i++)
+            arr3->A[k++] = arr1->A[i];
+
+        arr3->length = k;
+        arr3->size = 10;
+
+        return arr3;
+    }
+```
+
+### Linear Search
+
+```C
 // Linear Search
 int LinearSearch(struct Array *arr, int key){
     int i=0;
@@ -494,7 +738,11 @@ int LinearSearch(struct Array *arr, int key){
         return -1;
     }
 }
+```
 
+### Binary Search
+
+```C
 // Binary Search
 
     // Iterative
@@ -523,7 +771,11 @@ int LinearSearch(struct Array *arr, int key){
         }
         return -1;
     } */
+```
 
+### Body
+
+```C
 int main(){
     /* Initialise Array in HEAP
     struct Array arr;
@@ -551,17 +803,24 @@ int main(){
     Insert(&arr, 0, 10);
 
     // Delete operation
-    printf("%d\n", Delete(&arr, 0););
-    printf("%d\n", Delete(&arr, 5););
+    printf("%d\n", Delete(&arr, 0));
+    printf("%d\n", Delete(&arr, 5));
 
     // Sorted?
     printf("%d\n", isSorted(arr));
+
+    // Merging
+    struct Array arr2 = {{1,7,8,9}, 10, 4};
+    struct Array *arr3;
+    arr3 = Merging(&arr, &arr2);
+    Display(*arr3);
 
     // Get operation
     printf("%d\n", Get(arr, 2));
 
     // Set operation
     Set(&arr, 0, 10);
+    Set(&arr, 0, 2);
 
     // Max / Min operation
     printf("%d\n", Max(arr));
@@ -571,6 +830,7 @@ int main(){
     printf("%f\n", Avg(arr));
 
     // Reverse operation
+    Reverse(&arr);
     Reverse(&arr);
 
     // Linear Search
@@ -583,6 +843,132 @@ int main(){
     // Display operation
     Display(arr);
 
+    return 0;
+}
+```
+
+## Menu Driven Programme
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+struct Array
+{
+    int *A;
+    int size;
+    int length;
+};
+
+void Display(struct Array arr)
+{
+    int i;
+    printf("\nElements are\n");
+    for (i = 0; i < arr.length; i++)
+        printf("%d ", arr.A[i]);
+}
+
+void Insert(struct Array *arr, int index, int x)
+{
+    int i;
+    if (index >= 0 && index <= arr->length)
+    {
+        for (i = arr->length; i > index; i--)
+            arr->A[i] = arr->A[i - 1];
+        arr->A[index] = x;
+        arr->length++;
+    }
+}
+
+int Delete(struct Array *arr, int index)
+{
+    int x = 0;
+    int i;
+
+    if (index >= 0 && index < arr->length)
+    {
+        x = arr->A[index];
+        for (i = index; i < arr->length - 1; i++)
+            arr->A[i] = arr->A[i + 1];
+        arr->length--;
+        return x;
+    }
+
+    return 0;
+}
+
+int LinearSearch(struct Array *arr, int key)
+{
+    int i;
+    for (i = 0; i < arr->length; i++)
+    {
+        if (key == arr->A[i])
+        {
+            swap(&arr->A[i], &arr->A[0]);
+            return i;
+        }
+    }
+    return -1;
+}
+
+int Sum(struct Array arr)
+{
+    int s = 0;
+    int i;
+    for (i = 0; i < arr.length; i++)
+        s += arr.A[i];
+
+    return s;
+}
+
+int main()
+{
+    struct Array arr1;
+    int ch;
+    int x, index;
+
+    printf("Enter Size of Array");
+    scanf("%d", &arr1.size);
+    arr1.A = (int *)malloc(arr1.size * sizeof(int));
+    arr1.length = 0;
+    do
+    {
+        printf("\n\nMenu\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Search\n");
+        printf("4. Sum\n");
+        printf("5. Display\n");
+        printf("6. Exit\n");
+
+        printf("enter you choice ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+        case 1:
+            printf("Enter an element and index");
+            scanf("%d%d", &x, &index);
+            Insert(&arr1, index, x);
+            break;
+        case 2:
+            printf("Enter index ");
+            scanf("%d", &index);
+            x = Delete(&arr1, index);
+            printf("Deleted Element is %d\n", x);
+            break;
+        case 3:
+            printf("Enter element to search ");
+            scanf("%d", &x);
+            index = LinearSearch(&arr1, x);
+            printf("Element index %d", index);
+            break;
+        case 4:
+            printf("Sum is %d\n", Sum(arr1));
+            break;
+        case 5:
+            Display(arr1);
+        }
+    } while (ch < 6);
     return 0;
 }
 ```
