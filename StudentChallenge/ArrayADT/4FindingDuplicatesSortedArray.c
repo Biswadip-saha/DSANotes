@@ -26,6 +26,8 @@ int main()
 
     // Way 2 (Using Hashing):
     int max, min;
+    max = A[0], min = A[0];
+
     for (i = 1; i < 10; i++)
         if (max < A[i])
             max = A[i];
