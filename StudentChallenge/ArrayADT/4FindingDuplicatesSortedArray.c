@@ -3,9 +3,11 @@
 // Type 1: 3,6,8,8,10,12,15,15,15,20
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
+    // Way 1:
     int i;
     int A[10] = {3, 6, 8, 8, 10, 12, 15, 15, 15, 20};
 
@@ -22,8 +24,29 @@ int main()
         }
     }
 
-    /* My way:
+    // Way 2 (Using Hashing):
+    int max, min;
+    for (i = 1; i < 10; i++)
+        if (max < A[i])
+            max = A[i];
+    for (i = 1; i < 10; i++)
+        if (min > A[i])
+            min = A[i];
 
+    int *B = (int *)malloc((max + 1) * sizeof(int));
+    for (i = 0; i < (max + 1); i++)
+        B[i] = 0;
+
+    for (i = 0; i < 10; i++)
+        B[A[i]]++;
+
+    for (i = min; i < (max + 1); i++)
+        if (B[i] > 1)
+            printf("The number %d appears for %d times\n", i, B[i]);
+
+    free(B);
+
+    /* My way:
     int count = 1;
     for (i = 0; i < 10 - 1; i++)
     {
