@@ -1,6 +1,7 @@
 // Find a pair of elements such that the sum of those elements are equal to the given sum in both sorted and unsorted array consisting of unique elements
 
 // Type 1: 6,3,8,10,16,7,5,2,9,14
+// Type 2: 1,3,4,5,6,8,9,10,12,14
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,14 +9,13 @@
 int main()
 {
     int reqSum = 10;
-    int i;
+    int i, j;
 
+    // Type 1:
     // Unsorted Array
     int A[10] = {6, 3, 8, 10, 16, 7, 5, 2, 9, 14};
 
     // Way 1:
-    int j;
-
     for (i = 0; i < (10 - 1); i++)
     {
         if (A[i] != -1)
@@ -51,7 +51,37 @@ int main()
 
     free(B);
 
+    // Type 2:
     // Sorted Array
+    int C[10] = {1, 3, 4, 5, 6, 8, 9, 10, 12, 14};
+    i = 0, j = 9;
+
+    while (i < j)
+    {
+        if ((C[i] + C[j]) > reqSum)
+            j--;
+        else if ((C[i] + C[j]) < reqSum)
+            i++;
+        else
+        {
+            printf("The pair of element which equal to the required sum %d is: %d and %d\n", reqSum, C[i], C[j]);
+            i++, j--;
+        }
+    }
+
+    // conversion to 'for' loop
+    for (i = 0, j = (10 - 1); i < j;)
+    {
+        if ((C[i] + C[j]) > reqSum)
+            j--;
+        else if ((C[i] + C[j]) < reqSum)
+            i++;
+        else
+        {
+            printf("The pair of element which equal to the required sum %d is: %d and %d\n", reqSum, C[i], C[j]);
+            i++, j--;
+        }
+    }
 
     return 0;
 }
