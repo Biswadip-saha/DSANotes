@@ -22,9 +22,13 @@ char X[ ] = {65, 66, 67, 68, 69};
 // By adding a string delimiter at the end of the character array it becomes a string
 // \0 is the delimiter of a string or null character
 
-char name[10] = {'J','o','h','n', \0}; 
+char name[10] = {'J','o','h','n', \0};
 // -> InMemory: name = 'J','o','h','n', \0, 0, 0, 0, 0, 0
 ```
+
+-   In recent compilers, defining a string using a pointer creates an immutable string, whereas defining a string using array notation creates a mutable string
+-   Using pointer: `char *name = "Biswadip";`
+-   Using array notation: `char name[] = "Biswadip";`
 
 ## Creating, Reading, Writing a string
 
@@ -74,21 +78,20 @@ printf("%s", B);
 ### Counting vowels, consonents, words
 
 ```C
-int vcount=0, ccount=0, word =1;
+int vcount=0, ccount=0, word=1;
 char A[] = "How are you";
-for(i=0; i!='\0'; i++){
-    if(A[i]=='a' || 
-        A[i]=='e' || 
-        A[i]=='i' || 
-        A[i]=='o' || 
-        A[i]=='u' || 
-        A[i]=='A' || 
-        A[i]=='E' || 
-        A[i]=='I' || 
-        A[i]=='O' || 
-        A[i]=='U') v
-            count++;
-    else if((A[i]>=65 && A[i]<=90) || (A[i]>=97 && A[i]<=122)) 
+for(i=0; A[i]!='\0'; i++){
+    if(A[i]=='a' ||
+        A[i]=='e' ||
+        A[i]=='i' ||
+        A[i]=='o' ||
+        A[i]=='u' ||
+        A[i]=='A' ||
+        A[i]=='E' ||
+        A[i]=='I' ||
+        A[i]=='O' ||
+        A[i]=='U') vcount++;
+    else if((A[i]>=65 && A[i]<=90) || (A[i]>=97 && A[i]<=122))
         ccount++;
 }
 
@@ -100,5 +103,68 @@ for(i=0, A[i]!=0; i++){
 ### Validate a string
 
 ```C
+char *name = "Ani?321";
+int valid(char *name){
+    for(i=0; name[i]!='\0'; i++){
+        if(!(name[i]>=65 && name[i]<=90) &&
+        !(name[i]>=97 && name[i]<=122) &&
+        !(name[i]>=48 && name[i]<=57)) return 0;
+    } return 1;
+}
+```
 
+### Reversing a string
+
+```C
+int t;
+char A[] = "python";
+char B[7];
+
+for(i=0; A[i]!='\0'; i++){}
+i--;
+for(j=0; i>=0; i--, j++){
+    B[j] = A[i];
+}
+B[j] = '\0';
+
+// OR
+
+for(j=0; A[j]!='\0'; j++){}
+j--;
+for(i=0; i<j; i++, j--){
+    t = A[i];
+    A[i] = A[j];
+    A[j] = t;
+}
+```
+
+### Comparing string and Palindrome
+
+```C
+// Comparing
+char A[] = "Painter";
+char B[] = "Painting";
+
+for(i=0, j=0; (A[i]!='\0') || (B[j]!='\0'); i++, j++){
+    if(A[i]>65) A[i]+32;
+    else if(B[i]>65) B[i]+32;
+
+    if(A[i] != B[j]) break;
+}
+
+if(A[i] == B[j]) printf("Equal");
+else if(A[i] < B[j]) printf("Second word is greater");
+else printf("First word is greater");
+
+// Palindrome
+char A[] = "madam";
+
+for(j=0; A[j]!='\0'; j++){}
+j--;
+for(i=0; i<j; i++, j--){
+    if(A[i] != A[j]) break;
+}
+
+if(A[i] == A[j]) printf("Palindrome");
+else printf("Not palindrome");
 ```
