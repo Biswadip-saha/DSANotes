@@ -40,3 +40,65 @@ printf("%s", name);
 scanf("%s", name); // can read only one word
 gets(name); // reads words till you hit enter
 ```
+
+## Functions upon string
+
+### Length of a string
+
+```C
+char S[] = "Welcome";
+
+for(i=0; S[i]!='\0'; i++){}
+printf("Length: %d", i);
+```
+
+### Changing case
+
+```C
+// Uppercase to lower
+char A[] = "WELCOME";
+for(i=0, A[i]!=0; i++){
+    A[i] += 32;
+}
+printf("%s", A);
+
+// Toggle cases
+char B[] = "wElCoMe";
+for(i=0, B[i]!=0; i++){
+    if(B[i]>=65 && B[i]<=90) B[i] += 32;
+    else if(B[i]>=97 && B[i]<=122) B[i] -= 32;
+}
+printf("%s", B);
+```
+
+### Counting vowels, consonents, words
+
+```C
+int vcount=0, ccount=0, word =1;
+char A[] = "How are you";
+for(i=0; i!='\0'; i++){
+    if(A[i]=='a' || 
+        A[i]=='e' || 
+        A[i]=='i' || 
+        A[i]=='o' || 
+        A[i]=='u' || 
+        A[i]=='A' || 
+        A[i]=='E' || 
+        A[i]=='I' || 
+        A[i]=='O' || 
+        A[i]=='U') v
+            count++;
+    else if((A[i]>=65 && A[i]<=90) || (A[i]>=97 && A[i]<=122)) 
+        ccount++;
+}
+
+for(i=0, A[i]!=0; i++){
+    if(A[i]==' ' && A[i-1]) word++;
+}
+```
+
+### Validate a string
+
+```C
+
+```
