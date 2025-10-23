@@ -13,14 +13,14 @@
 -   [Insert(index, x)](#insertindex-x)
 -   [Delete(index)](#deleteindex)
 -   [Sorted?](#sorted)
--   [Merging]()
+-   [Merging](#merging)
 -   [Get(index)](#getindex)
 -   [Set(index, x)](#setindex)
 -   [Max() / Min()](#max--min)
 -   [Avg()](#avg)
 -   [Reverse()](#reverse)
 -   [Shift() / Rotate()](#shift--rotate)
--   [Sets Operation](#set-operations)
+-   [Sets Operation](#sets-operations)
 
 ## Searching
 
@@ -29,7 +29,7 @@
 
 ## Code
 
-- [Implementation](#code-implementation)
+- [Implementation](#implementation)
 - [Menu Driven Programme](#menu-driven-programme)
 
 # Data
