@@ -228,3 +228,71 @@ int main(){
     return 0;
 }
 ```
+
+# Bitwise Operations
+
+## Left Shift
+
+H = 0
+<br>
+H = H << 1
+
+-   All bits in the memory is shifted to the left by the stated number, and the remaining vacant spaces is filled with 0
+
+## Bits ORing
+
+```C
+a = 10 -> 1 0 1 0
+b =  6 -> 0 1 1 0
+-----------------
+a | b  -> 1 1 1 0 = 14
+
+refrence:
+a | b
+1 | 1 = 1
+1 | 0 = 1
+0 | 1 = 1
+0 | 0 = 0
+```
+
+### Merging:
+
+-   Merging is used to setting a particular bit to ON
+
+```C
+H -> 0 0 0 1 0 0 0 0
+a -> 0 0 0 0 0 0 0 0
+
+a = 1      : a -> 0 0 0 0 0 0 0 1
+a = a << 2 : a -> 0 0 0 0 0 1 0 0
+H = a | H  : H -> 0 0 0 1 0 1 0 0
+```
+
+## Bits ANDing
+
+```C
+a = 10 -> 1 0 1 0
+b =  6 -> 0 1 1 0
+-----------------
+a & b  -> 0 0 1 0 = 2
+
+refrence:
+a & b
+1 & 1 = 1
+1 & 0 = 0
+0 & 1 = 0
+0 & 0 = 0
+```
+
+### Masking:
+
+-   Masking is used to determine a particular bit is ON or not, if it returns 0 then NO, otherwise YES
+
+```C
+H -> 0 0 0 1 0 0 0 0
+a -> 0 0 0 0 0 0 0 0
+
+a = 1      : a -> 0 0 0 0 0 0 0 1
+a = a << 4 : a -> 0 0 0 1 0 0 0 0
+a & H -> True
+```
