@@ -222,3 +222,69 @@ for(i=0; A[i]!='\0'; i++){
 
 // here check is used for checking if the string has the duplicate letter for more than 2 times, if not checked then the code will print "duplicate" for every time it encounters the letter after the 2nd duplicate which we dont want if printed already
 ```
+
+### Check for anagram
+
+```C
+// Assuming: same length
+
+int hash[26] = {0};
+char A[] = "decimal";
+char B[] = "medical";
+
+for(i=0; A[i]!=0; i++){
+    hash[A[i]-97]++;
+}
+for(i=0; B[i]!=0; i++){
+    hash[B[i]-97]--;
+    if(hash[A[i]-97] < 0){
+        printf("Not annagram");
+        break;
+    }
+}
+if(B[i] == '\0') printf("Annagram");
+```
+
+### Permutations of a string
+
+```C
+// Using brute force approach by backtracking on a recursive function on state space tree
+void perm(char S[], int k){
+    static int A[4] = {0}; // flag array
+    static char ResultantString[4];
+
+    if(S[k] == '\0'){
+        ResultantString[k] == '\0';
+        printf("%s", ResultantString);
+    }else{
+        for(i=0; S[i]!='\0'; i++){
+            if(A[i] == 0){
+                ResultantString[k] = S[i];
+                A[i] = 1;
+                perm(S, k+1);
+                A[i] = 0;
+            }
+        }
+    }
+}
+
+int main(){
+    char S[] = "ABC";
+    perm(S, 0);
+}
+
+// Using swaping
+void perm(char S[]. int l, int h){
+    if(l == h){
+        printf("%s", S);
+    }else{
+        for(i=l; i<=h; i++){
+            swap(S[l], S[i]);
+            perm(S, l+1, h);
+            swap(S[l], S[i]);
+        }
+    }
+}
+
+// l starts from 0 and h stays at the letter before null character
+```
