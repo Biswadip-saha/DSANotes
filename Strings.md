@@ -116,6 +116,7 @@ int valid(char *name){
 ### Reversing a string
 
 ```C
+// Way 1:
 int t;
 char A[] = "python";
 char B[7];
@@ -129,6 +130,7 @@ B[j] = '\0';
 
 // OR
 
+// Way 2:
 for(j=0; A[j]!='\0'; j++){}
 j--;
 for(i=0; i<j; i++, j--){
@@ -167,4 +169,56 @@ for(i=0; i<j; i++, j--){
 
 if(A[i] == A[j]) printf("Palindrome");
 else printf("Not palindrome");
+```
+
+### Finding duplicates in a string
+
+```C
+char A[] = "finding";
+
+// Way 1: Compare with other letters
+int count = 1;
+for(i=0, j=i+1; A[j]!='\0'; i++){
+    if(A[i] != 0){
+        for(; A[j]!='\0'; j++){
+            if (A[i] == A[j]){
+                A[j] = 0;
+                count++;
+            }
+        }
+        if(count > 1){
+            printf("The letter %c appears for %d times", A[i], count);
+            count = 1;
+        }
+    }
+    j = i+1;
+}
+
+// Way 2: Using hashtable as counting
+int hash[26] = {0};
+
+for(i=0; A[i]!='\0'; i++){
+    hash[A[i]-97]++;
+}
+for(i=0; i<26; i++){
+    if(hash[i]>1){
+        printf("The letter %c appears for %d times", i+97, hash[i]);
+    }
+}
+
+// Way 3: Using Bits
+long int H = 0, x = 0, check = 0;
+for(i=0; A[i]!='\0'; i++){
+    x = 1;
+    x = x << A[i]-97;
+    if(((x & H) > 0) && ((x & check) == 0)){
+        check = check | x;
+        printf("%c is duplicate", A[i]);
+    }else{
+        H = x | H;
+    }
+}
+// we need 26 bits for 26 letters, so the closest byte with 26 or greater is 4 byte, while some compilers store int in 4 byte and some in 2, it is safer to store it in long int to eleminate the scope of error
+
+// here check is used for checking if the string has the duplicate letter for more than 2 times, if not checked then the code will print "duplicate" for every time it encounters the letter after the 2nd duplicate which we dont want if printed already
 ```
